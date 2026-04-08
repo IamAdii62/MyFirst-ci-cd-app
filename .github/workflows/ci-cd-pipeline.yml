@@ -11,12 +11,12 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v4
+      uses: actions/checkout@v3
 
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
       with:
-        node-version: 18
+        node-version: '20'
 
     - name: Install dependencies
       run: npm install
@@ -24,23 +24,26 @@ jobs:
     - name: Run tests
       run: npm test
 
-    - name: Login to Docker Hub
-      run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
-
     - name: Build Docker image
-      run: docker build -t ${{ secrets.DOCKER_USERNAME }}/ci-cd-app:latest .
+      run: docker build -t myusername/my-webapp:latest .
+
+    - name: Login to Docker Hub
+      uses: docker/login-action@v2
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
 
     - name: Push Docker image
-      run: docker push ${{ secrets.DOCKER_USERNAME }}/ci-cd-app:latest
+      run: docker push myusername/my-webapp:latest
 
-    - name: Deploy to EC2
-      uses: appleboy/ssh-action@v1.0.0
+    - name: SSH to EC2 and deploy
+      uses: appleboy/ssh-action@v0.1.7
       with:
         host: ${{ secrets.EC2_HOST }}
-        username: ${{ secrets.EC2_USER }}
-        key: ${{ secrets.EC2_SSH_KEY }}
+        username: ubuntu
+        key: ${{ secrets.EC2_KEY }}
         script: |
-          docker pull ${{ secrets.DOCKER_USERNAME }}/ci-cd-app:latest
-          docker stop app || true
-          docker rm app || true
-          docker run -d -p 3000:3000 --name app ${{ secrets.DOCKER_USERNAME }}/ci-cd-app:latest
+          docker pull myusername/my-webapp:latest
+          docker stop my-webapp || true
+          docker rm my-webapp || true
+          docker run -d -p 80:3000 --name my-webapp myusername/my-webapp:latest
