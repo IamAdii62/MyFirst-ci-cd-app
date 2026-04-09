@@ -45,7 +45,7 @@ app.get("/", (req, res) => {
     <body>
       <div class="card">
         <h1>🚀 CI/CD SUCCESS</h1>
-        <p>Your DevOps pipeline is working perfectly!</p>
+        <p>My DevOps pipeline is working perfectly!</p>
         <div class="badge">Deployed via GitHub Actions</div>
       </div>
     </body>
