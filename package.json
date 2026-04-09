@@ -3,10 +3,22 @@
   "version": "1.0.0",
   "main": "app.js",
   "scripts": {
-    "test": "node test.js",
-    "start": "node app.js"
+    "test": "node test.js"
   },
   "dependencies": {
-    "express": "^4.18.2"
-  }
+    "express": "^4.22.1"
+  },
+  "description": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IamAdii62/ci-cd-app.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/IamAdii62/ci-cd-app/issues"
+  },
+  "homepage": "https://github.com/IamAdii62/ci-cd-app#readme"
 }
