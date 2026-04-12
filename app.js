@@ -1,13 +1,17 @@
 const express = require("express");
-const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
+const fetch = (...args) =>
+  import("node-fetch").then(({ default: fetch }) => fetch(...args));
 
 const app = express();
+
+// 🔥 FIX: Use environment variable instead of hardcoded IP
+const BACKEND_URL = process.env.BACKEND_URL || "http://localhost:5000";
 
 app.get("/", async (req, res) => {
   let message = "Loading...";
 
   try {
-    const response = await fetch("http://51.20.82.105:5000/api");
+    const response = await fetch(`${BACKEND_URL}/api`);
     const data = await response.json();
     message = data.message;
   } catch (err) {
