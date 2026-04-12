@@ -7,7 +7,7 @@ app.get("/", async (req, res) => {
   let message = "Loading...";
 
   try {
-    const response = await fetch("http://backend:5000/api");
+    const response = await fetch("http://51.20.82.105:5000/api");
     const data = await response.json();
     message = data.message;
   } catch (err) {
