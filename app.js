@@ -1,7 +1,19 @@
 const express = require("express");
+const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
+
 const app = express();
 
-app.get("/", (req, res) => {
+app.get("/", async (req, res) => {
+  let message = "Loading...";
+
+  try {
+    const response = await fetch("http://backend:5000/api");
+    const data = await response.json();
+    message = data.message;
+  } catch (err) {
+    message = "Backend not connected";
+  }
+
   res.send(`
     <html>
     <head>
@@ -45,8 +57,8 @@ app.get("/", (req, res) => {
     <body>
       <div class="card">
         <h1>🚀 CI/CD SUCCESS</h1>
-        <p>My DevOps pipeline is working perfectly!</p>
-        <div class="badge">Deployed via GitHub Actions</div>
+        <p>${message}</p>
+        <div class="badge">Frontend + Backend Connected</div>
       </div>
     </body>
     </html>
@@ -54,5 +66,5 @@ app.get("/", (req, res) => {
 });
 
 app.listen(3000, () => {
-  console.log("Server running on port 3000");
+  console.log("Frontend running on port 3000");
 });
