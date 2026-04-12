@@ -15,7 +15,8 @@ app.get("/", async (req, res) => {
     const data = await response.json();
     message = data.message;
   } catch (err) {
-    message = "Backend not connected";
+     console.log("ERROR:", err.message);
+  message = "Backend not connected: " + err.message;
   }
 
   res.send(`
