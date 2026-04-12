@@ -23,13 +23,15 @@ jobs:
       run: docker push aditi62/myfirstcicd:latest
 
     - name: Deploy to EC2
-      uses: appleboy/ssh-action@master
-      with:
-        host: ${{ secrets.EC2_HOST }}
-        username: ${{ secrets.EC2_USER }}
-        key: ${{ secrets.EC2_SSH_KEY }}
-        script: |
-          docker pull aditi62/myfirstcicd:latest
-          docker stop app || true
-          docker rm app || true
-          docker run -d -p 3000:3000 --name app aditi62/myfirstcicd:latest
+  uses: appleboy/ssh-action@master
+  with:
+    host: ${{ secrets.EC2_HOST }}
+    username: ${{ secrets.EC2_USER }}
+    key: ${{ secrets.EC2_SSH_KEY }}
+    script: |
+      docker pull aditi62/myfirstcicd:latest
+
+      docker stop app || true
+      docker rm app || true
+
+      docker run -d -p 4000:3000 --name app aditi62/myfirstcicd:latest
