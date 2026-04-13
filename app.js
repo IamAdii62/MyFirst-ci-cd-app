@@ -5,7 +5,7 @@ const fetch = (...args) =>
 const app = express();
 
 // 🔥 FIX: Use environment variable instead of hardcoded IP
-const BACKEND_URL = process.env.BACKEND_URL || "http://localhost:5000";
+const BACKEND_URL = process.env.BACKEND_URL || "http://backend:5000";
 
 app.get("/", async (req, res) => {
   let message = "Loading...";
