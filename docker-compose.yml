@@ -9,6 +9,7 @@ services:
 
   backend:
     build: ./backend
+    container_name: backend
     ports:
       - "5000:5000"
     depends_on:
@@ -16,7 +17,10 @@ services:
 
   frontend:
     image: aditi62/myfirstcicd:latest
+    container_name: frontend
     ports:
       - "4000:3000"
+    environment:
+      - BACKEND_URL=http://backend:5000
     depends_on:
       - backend
