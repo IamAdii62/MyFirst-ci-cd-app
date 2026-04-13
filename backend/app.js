@@ -5,10 +5,18 @@ const mongoose = require("mongoose");
 const app = express();
 app.use(cors());
 
-// MongoDB connect
-mongoose.connect("mongodb://mongodb:27017/testdb")
-  .then(() => console.log("MongoDB connected"))
-  .catch(err => console.log(err));
+// ✅ MongoDB Retry Connection (FINAL FIX)
+const connectDB = async () => {
+  try {
+    await mongoose.connect("mongodb://mongodb:27017/testdb");
+    console.log("✅ MongoDB connected");
+  } catch (err) {
+    console.log("❌ MongoDB not ready, retrying in 5 sec...");
+    setTimeout(connectDB, 5000);
+  }
+};
+
+connectDB();
 
 // Schema
 const DataSchema = new mongoose.Schema({
@@ -33,5 +41,5 @@ app.get("/api", async (req, res) => {
 });
 
 app.listen(5000, () => {
-  console.log("Backend running on port 5000");
+  console.log("🚀 Backend running on port 5000");
 });
