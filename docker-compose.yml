@@ -1,23 +1,22 @@
-version: "3"
+version: '3'
 
 services:
-  frontend:
-    image: aditi62/myfirstcicd:latest
+  mongodb:
+    image: mongo
+    container_name: mongodb
     ports:
-      - "4000:3000"
-    environment:
-      - BACKEND_URL=http://backend:5000
-    depends_on:
-      - backend
+      - "27017:27017"
 
   backend:
-    image: myfirst-ci-cd-app_backend
+    build: ./backend
     ports:
       - "5000:5000"
     depends_on:
       - mongodb
 
-  mongodb:
-    image: mongo
+  frontend:
+    image: aditi62/myfirstcicd:latest
     ports:
-      - "27017:27017"
+      - "4000:3000"
+    depends_on:
+      - backend
