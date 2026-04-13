@@ -30,15 +30,12 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           port: 22
           script: |
-          docker stop $(docker ps -q) || true
-          docker rm $(docker ps -aq) || true
+            docker stop $(docker ps -q) || true
+            docker rm $(docker ps -aq) || true
 
-          docker pull aditi62/myfirstcicd:latest
+            docker pull aditi62/myfirstcicd:latest
 
-          docker run -d -p 4000:3000 \
-            --network myfirst-ci-cd-app_default \
-             -e BACKEND_URL=http://backend:5000 \
-            --name app aditi62/myfirstcicd:latest
-
-
-            
+            docker run -d -p 4000:3000 \
+              --network myfirst-ci-cd-app_default \
+              -e BACKEND_URL=http://backend:5000 \
+              --name app aditi62/myfirstcicd:latest
