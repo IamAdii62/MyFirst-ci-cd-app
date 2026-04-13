@@ -37,5 +37,5 @@ jobs:
 
             docker run -d -p 4000:3000 \
               --network myfirst-ci-cd-app_default \
-              -e BACKEND_URL=http://backend:5000 \
+              -e BACKEND_URL=http://myfirst-ci-cd-app_backend_1:5000 \
               --name app aditi62/myfirstcicd:latest
