@@ -61,7 +61,7 @@ app.get("/", async (req, res) => {
     </head>
     <body>
       <div class="card">
-        <h1>🚀 CI/CD SUCCESS</h1>
+        <h1>🚀 CI/CD SUCCESS v2</h1>
         <p>${message}</p>
         <div class="badge">Frontend + Backend Connected</div>
       </div>
