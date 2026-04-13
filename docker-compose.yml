@@ -12,6 +12,8 @@ services:
     container_name: backend
     ports:
       - "5000:5000"
+    environment:
+      - MONGO_URL=mongodb://mongodb:27017/testdb
     depends_on:
       - mongodb
 
@@ -24,20 +26,3 @@ services:
       - BACKEND_URL=http://backend:5000
     depends_on:
       - backend
-<<<<<<< HEAD
-=======
-
-  backend:
-    build: ./backend
-    ports:
-      - "5000:5000"
-    environment:
-      - MONGO_URL=mongodb://mongodb:27017/testdb
-    depends_on:
-      - mongodb
-
-  mongodb:
-    image: mongo
-    ports:
-      - "27017:27017"
->>>>>>> b064302 (fix backend hostname)
